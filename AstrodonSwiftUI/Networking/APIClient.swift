@@ -5,7 +5,11 @@
 
 import Foundation
 
-class APIClient {
+protocol APIClientProtocol {
+  func token(code: String) async throws -> String
+}
+
+class APIClient: APIClientProtocol {
   lazy var session: URLSessionProtocol = URLSession.shared
 
   func token(code: String) async throws -> String {

@@ -10,11 +10,13 @@ import ViewInspector
 @MainActor
 struct AuthorizationViewTests {
 
+  let apiClientMock: APIClientProtocolMock
   let viewModel: AuthorizationViewModel
   let sut: AuthorizationView
 
   init() {
-    viewModel = AuthorizationViewModel()
+    apiClientMock = APIClientProtocolMock()
+    viewModel = AuthorizationViewModel(apiClient: apiClientMock)
     sut = AuthorizationView(viewModel: viewModel)
   }
 
@@ -36,7 +38,7 @@ struct AuthorizationViewTests {
     #expect(authButton.isDisabled() == false)
   }
 
-  @Test func codeButton_whenCodeTextFieldEmpty_disabled() async throws {
+  @Test func sendButton_whenCodeTextFieldEmpty_disabled() async throws {
     let codeTextField = try sut.inspect().find(ViewType.TextField.self,
                                                where: { try $0.labelView().text().string() == "Code" })
 
@@ -46,4 +48,22 @@ struct AuthorizationViewTests {
     let codeButton = try sut.inspect().find(button: "Send")
     #expect(codeButton.isDisabled() == true)
   }
+
+  @Test func sendButton_whenCodeTextFieldNotEmpty_enabled() async throws {
+    let codeTextField = try sut.inspect().find(ViewType.TextField.self, containing: "Code")
+    try codeTextField.setInput("1234")
+
+    let authButton = try sut.inspect().find(button: "Send")
+    #expect(authButton.isDisabled() == false)
+  }
+
+  @Test func sendButton_fetchesToken() async throws {
+    let codeTextField = try sut.inspect().find(ViewType.TextField.self, containing: "Code")
+    try codeTextField.setInput("1234")
+
+    let authButton = try sut.inspect().find(button: "Send")
+    try authButton.tap()
+    #expect(apiClientMock.tokenCodeCalled == true)
+  }
+
 }

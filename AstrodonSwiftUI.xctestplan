@@ -1,0 +1,39 @@
+{
+  "configurations" : [
+    {
+      "id" : "139585AF-3E06-4D4D-82CC-899AF76149F2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:AstrodonSwiftUI.xcodeproj",
+      "identifier" : "F2D11F682F8C0AD6009AABCB",
+      "name" : "AstrodonSwiftUI"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:AstrodonSwiftUI.xcodeproj",
+        "identifier" : "F2D11F752F8C0AD8009AABCB",
+        "name" : "AstrodonSwiftUITests"
+      }
+    },
+    {
+      "enabled" : false,
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:AstrodonSwiftUI.xcodeproj",
+        "identifier" : "F2D11F7F2F8C0AD8009AABCB",
+        "name" : "AstrodonSwiftUIUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

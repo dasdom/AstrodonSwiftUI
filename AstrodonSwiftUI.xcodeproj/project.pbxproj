@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F2A3A53B2F8E9D5C0073EE9A /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = F2A3A53A2F8E9D5C0073EE9A /* ViewInspector */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F2D11F772F8C0AD8009AABCB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,14 +28,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F2A3A5262F8D471E0073EE9A /* AstrodonSwiftUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = AstrodonSwiftUI.xctestplan; sourceTree = "<group>"; };
 		F2D11F692F8C0AD6009AABCB /* AstrodonSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstrodonSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D11F762F8C0AD8009AABCB /* AstrodonSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AstrodonSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2D11F802F8C0AD8009AABCB /* AstrodonSwiftUIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AstrodonSwiftUIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F2A3A5382F8E9A3E0073EE9A /* Exceptions for "AstrodonSwiftUI" folder in "AstrodonSwiftUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F2D11F682F8C0AD6009AABCB /* AstrodonSwiftUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F2D11F6B2F8C0AD6009AABCB /* AstrodonSwiftUI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F2A3A5382F8E9A3E0073EE9A /* Exceptions for "AstrodonSwiftUI" folder in "AstrodonSwiftUI" target */,
+			);
 			path = AstrodonSwiftUI;
 			sourceTree = "<group>";
 		};
@@ -59,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A3A53B2F8E9D5C0073EE9A /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +94,7 @@
 		F2D11F602F8C0AD6009AABCB = {
 			isa = PBXGroup;
 			children = (
+				F2A3A5262F8D471E0073EE9A /* AstrodonSwiftUI.xctestplan */,
 				F2D11F6B2F8C0AD6009AABCB /* AstrodonSwiftUI */,
 				F2D11F792F8C0AD8009AABCB /* AstrodonSwiftUITests */,
 				F2D11F832F8C0AD8009AABCB /* AstrodonSwiftUIUITests */,
@@ -135,6 +155,7 @@
 			);
 			name = AstrodonSwiftUITests;
 			packageProductDependencies = (
+				F2A3A53A2F8E9D5C0073EE9A /* ViewInspector */,
 			);
 			productName = AstrodonSwiftUITests;
 			productReference = F2D11F762F8C0AD8009AABCB /* AstrodonSwiftUITests.xctest */;
@@ -171,7 +192,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2620;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					F2D11F682F8C0AD6009AABCB = {
 						CreatedOnToolsVersion = 26.2;
@@ -195,6 +216,9 @@
 			);
 			mainGroup = F2D11F602F8C0AD6009AABCB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F2A3A5392F8E9D5C0073EE9A /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F2D11F6A2F8C0AD6009AABCB /* Products */;
 			projectDirPath = "";
@@ -328,6 +352,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -385,6 +410,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -400,6 +426,7 @@
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AstrodonSwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,6 +459,7 @@
 				DEVELOPMENT_TEAM = Q6PD97MRX4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AstrodonSwiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -578,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F2A3A5392F8E9D5C0073EE9A /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F2A3A53A2F8E9D5C0073EE9A /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F2A3A5392F8E9D5C0073EE9A /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F2D11F612F8C0AD6009AABCB /* Project object */;
 }

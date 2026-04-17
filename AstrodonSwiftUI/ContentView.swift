@@ -1,22 +1,26 @@
 //  Created by Dominik Hauser on 12.04.26.
-//  
+//
 //
 
 
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+
+  var body: some View {
+    VStack {
+      Image(systemName: "globe")
+        .imageScale(.large)
+        .foregroundStyle(.tint)
+      Text("Hello, world!")
     }
+    .padding()
+    .sheet(isPresented: .constant(true)) {
+      AuthorizationView()
+    }
+  }
 }
 
 #Preview {
-    ContentView()
+  ContentView()
 }

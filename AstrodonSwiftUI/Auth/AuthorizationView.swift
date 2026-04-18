@@ -41,7 +41,11 @@ struct AuthorizationView: View {
       TextField("Code", text: $viewModel.code)
 
       Button("Send") {
-
+        do {
+          try viewModel.fetchToken()
+        } catch {
+          print("\(error)")
+        }
       }
       .disabled(viewModel.code.isEmpty)
     }

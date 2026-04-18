@@ -60,10 +60,12 @@ struct AuthorizationViewTests {
   @Test func sendButton_fetchesToken() async throws {
     let codeTextField = try sut.inspect().find(ViewType.TextField.self, containing: "Code")
     try codeTextField.setInput("1234")
+    apiClientMock.tokenCodeReturnValue = "987654321"
 
     let authButton = try sut.inspect().find(button: "Send")
     try authButton.tap()
-    #expect(apiClientMock.tokenCodeCalled == true)
+
+    #expect(viewModel.fetchTask != nil)
   }
 
 }

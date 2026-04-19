@@ -7,18 +7,21 @@ import Foundation
 
 @Observable
 class AuthorizationViewModel {
-  var apiClient: APIClientProtocol
+  let apiClient: APIClientProtocol
+  let keychain: KeychainProtocol
   var serverHost: String = ""
   var code: String = ""
   var fetchTask: Task<Void, Error>?
 
-  init(apiClient: APIClientProtocol = APIClient()) {
+  init(apiClient: APIClientProtocol = APIClient(), keychain: KeychainProtocol = Keychain()) {
     self.apiClient = apiClient
+    self.keychain = keychain
   }
 
   func fetchToken() throws {
     fetchTask = Task {
-      _ = try await apiClient.token(code: code)
+      let token = try await apiClient.token(code: code)
+      keychain.save(string: token, for: "token ")
     }
   }
 }

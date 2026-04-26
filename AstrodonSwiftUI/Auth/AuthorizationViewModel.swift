@@ -9,8 +9,8 @@ import Foundation
 class AuthorizationViewModel {
   let apiClient: APIClientProtocol
   let keychain: KeychainProtocol
-  var serverHost: String = ""
-  var code: String = ""
+  var serverHost = ""
+  var code = ""
   var fetchTask: Task<Void, Error>?
 
   init(apiClient: APIClientProtocol = APIClient(), keychain: KeychainProtocol = Keychain()) {
@@ -21,7 +21,7 @@ class AuthorizationViewModel {
   func fetchToken() throws {
     fetchTask = Task {
       let token = try await apiClient.token(code: code)
-      keychain.save(string: token, for: "token ")
+      try keychain.save(string: token, for: "token")
     }
   }
 }

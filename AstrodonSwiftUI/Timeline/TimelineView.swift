@@ -5,7 +5,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct TimelineView: View {
+
+  @State var viewModel = TimelineViewModel()
 
   var body: some View {
     VStack {
@@ -15,12 +17,12 @@ struct ContentView: View {
       Text("Hello, world!")
     }
     .padding()
-    .sheet(isPresented: .constant(true)) {
+    .sheet2(isPresented: $viewModel.isPresentingAuth) {
       AuthorizationView()
     }
   }
 }
 
 #Preview {
-  ContentView()
+  TimelineView()
 }

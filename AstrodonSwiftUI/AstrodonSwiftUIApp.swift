@@ -9,7 +9,7 @@ import SwiftUI
 struct AstrodonSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TimelineView()
         }
     }
 }

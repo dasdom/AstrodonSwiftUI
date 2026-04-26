@@ -11,40 +11,36 @@ final class KeychainProtocolMock: KeychainProtocol {
 
   // MARK: - save
 
-  var saveStringForThrowableError: Error?
-  var saveStringForCallsCount = 0
-  var saveStringForCalled: Bool {
-    saveStringForCallsCount > 0
+  var saveTokenThrowableError: Error?
+  var saveTokenCallsCount = 0
+  var saveTokenCalled: Bool {
+    saveTokenCallsCount > 0
   }
-  var saveStringForReceivedArguments: (string: String, key: String)?
-  var saveStringForReceivedInvocations: [(string: String, key: String)] = []
-  var saveStringForClosure: ((String, String) throws -> Void)?
+  var saveTokenReceivedToken: String?
+  var saveTokenReceivedInvocations: [String?] = []
+  var saveTokenClosure: ((String?) throws -> Void)?
 
-  func save(string: String, for key: String) throws {
-    if let error = saveStringForThrowableError {
+  func save(token: String?) throws {
+    if let error = saveTokenThrowableError {
       throw error
     }
-    saveStringForCallsCount += 1
-    saveStringForReceivedArguments = (string: string, key: key)
-    saveStringForReceivedInvocations.append((string: string, key: key))
-    try saveStringForClosure?(string, key)
+    saveTokenCallsCount += 1
+    saveTokenReceivedToken = token
+    saveTokenReceivedInvocations.append(token)
+    try saveTokenClosure?(token)
   }
 
-  // MARK: - get
+  // MARK: - token
 
-  var getForCallsCount = 0
-  var getForCalled: Bool {
-    getForCallsCount > 0
+  var tokenCallsCount = 0
+  var tokenCalled: Bool {
+    tokenCallsCount > 0
   }
-  var getForReceivedKey: String?
-  var getForReceivedInvocations: [String] = []
-  var getForReturnValue: String?
-  var getForClosure: ((String) -> String?)?
+  var tokenReturnValue: String?
+  var tokenClosure: (() -> String?)?
 
-  func get(for key: String) -> String? {
-    getForCallsCount += 1
-    getForReceivedKey = key
-    getForReceivedInvocations.append(key)
-    return getForClosure.map({ $0(key) }) ?? getForReturnValue
+  func token() -> String? {
+    tokenCallsCount += 1
+    return tokenClosure.map({ $0() }) ?? tokenReturnValue
   }
 }

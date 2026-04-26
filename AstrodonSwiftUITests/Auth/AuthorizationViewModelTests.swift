@@ -29,8 +29,7 @@ struct AuthorizationViewModelTests {
     // Wait until the task is finished
     // (https://dev.to/abeldemoz/deterministic-unit-tests-in-swift-concurrency-465n#comment-339bh)
     try await sut.fetchTask?.value
-    #expect(keychainMock.saveStringForReceivedArguments?.string == token)
-    #expect(keychainMock.saveStringForReceivedArguments?.key == "token")
+    #expect(keychainMock.saveTokenReceivedToken == token)
   }
 
 

@@ -44,4 +44,8 @@ struct APIClientTests {
     #expect(fetchedToken == token)
   }
 
+  @Test func toots() async throws {
+    let urlSession = URLSessionProtocolMock()
+    
+  }
 }

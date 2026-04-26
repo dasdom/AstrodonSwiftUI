@@ -21,7 +21,7 @@ class AuthorizationViewModel {
   func fetchToken() throws {
     fetchTask = Task {
       let token = try await apiClient.token(code: code)
-      try keychain.save(string: token, for: "token")
+      try keychain.save(token: token)
     }
   }
 }

@@ -12,8 +12,21 @@ enum KeychainError: Error {
 
 class Keychain: KeychainProtocol {
   static let shared = Keychain()
+  private let tokenKey = "token"
 
-  func save(string: String, for key: String) throws {
+  func save(token: String?) throws {
+    if let token {
+      try save(string: token, for: tokenKey)
+    } else {
+      try delete(for: tokenKey)
+    }
+  }
+
+  func token() -> String? {
+    get(for: tokenKey)
+  }
+
+  private func save(string: String, for key: String) throws {
     let data = string.data(using: .utf8)!
     let query = [
       kSecClass: kSecClassGenericPassword,
@@ -30,7 +43,7 @@ class Keychain: KeychainProtocol {
     }
   }
   
-  func get(for key: String) -> String? {
+  private func get(for key: String) -> String? {
     let query = [
       kSecClass: kSecClassGenericPassword,
       kSecAttrService: service(),
@@ -52,7 +65,7 @@ class Keychain: KeychainProtocol {
     return String(data: data, encoding: .utf8)
   }
 
-  func delete(for key: String) throws {
+  private func delete(for key: String) throws {
     let query = [
       kSecClass: kSecClassGenericPassword,
       kSecAttrService: service(),

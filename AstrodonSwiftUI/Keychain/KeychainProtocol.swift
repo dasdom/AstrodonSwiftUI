@@ -5,6 +5,6 @@
 import Foundation
 
 protocol KeychainProtocol {
-  func save(string: String, for key: String) throws
-  func get(for key: String) -> String?
+  func save(token: String?) throws
+  func token() -> String?
 }

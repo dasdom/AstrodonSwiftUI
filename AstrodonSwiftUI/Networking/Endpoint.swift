@@ -14,10 +14,11 @@ enum Endpoint {
 
   case authCode
   case token(code: String)
+  case home
 }
 
 extension Endpoint {
-  func request() throws -> URLRequest {
+  func request(token: String? = nil) throws -> URLRequest {
     guard let url else {
       throw EndpointError.requestCreation
     }
@@ -28,6 +29,9 @@ extension Endpoint {
       default:
         request.httpMethod = "GET"
     }
+    if let token {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
     return request
   }
 
@@ -37,6 +41,8 @@ extension Endpoint {
         "/oauth/token"
       case .authCode:
         "/oauth/authorize"
+      case .home:
+        "/api/v1/timelines/home"
     }
   }
 
@@ -61,6 +67,8 @@ extension Endpoint {
           URLQueryItem(name: "redirect_uri", value: ClientKey.redirect_uri.rawValue),
           URLQueryItem(name: "response_type", value: "code"),
         ]
+      default:
+        break
     }
     return urlComponents.url
   }

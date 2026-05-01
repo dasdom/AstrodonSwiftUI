@@ -6,5 +6,6 @@
 import Foundation
 
 struct Toot: Codable {
-  
+  let id: String
+  let account: Account
 }

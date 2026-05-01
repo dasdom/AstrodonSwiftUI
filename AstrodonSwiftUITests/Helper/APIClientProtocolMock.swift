@@ -31,21 +31,21 @@ final class APIClientProtocolMock: APIClientProtocol {
     return try tokenCodeClosure.map({ try $0(code) }) ?? tokenCodeReturnValue
   }
 
-  // MARK: - toots
+  // MARK: - homeTimeline
 
-  var tootsThrowableError: Error?
-  var tootsCallsCount = 0
-  var tootsCalled: Bool {
-    tootsCallsCount > 0
+  var homeTimelineThrowableError: Error?
+  var homeTimelineCallsCount = 0
+  var homeTimelineCalled: Bool {
+    homeTimelineCallsCount > 0
   }
-  var tootsReturnValue: [Toot]!
-  var tootsClosure: (() throws -> [Toot])?
+  var homeTimelineReturnValue: [Toot]!
+  var homeTimelineClosure: (() throws -> [Toot])?
 
-  func toots() throws -> [Toot] {
-    if let error = tootsThrowableError {
+  func homeTimeline() throws -> [Toot] {
+    if let error = homeTimelineThrowableError {
       throw error
     }
-    tootsCallsCount += 1
-    return try tootsClosure.map({ try $0() }) ?? tootsReturnValue
+    homeTimelineCallsCount += 1
+    return try homeTimelineClosure.map({ try $0() }) ?? homeTimelineReturnValue
   }
 }

@@ -9,7 +9,13 @@ import Foundation
 
 struct APIClientTests {
 
-  let sut = APIClient()
+  let keychainMock: KeychainProtocolMock
+  let sut: APIClient
+
+  init() {
+    keychainMock = KeychainProtocolMock()
+    sut = APIClient(keychain: keychainMock)
+  }
 
   @MainActor
   @Test func token() async throws {
@@ -44,8 +50,61 @@ struct APIClientTests {
     #expect(fetchedToken == token)
   }
 
+  @MainActor
   @Test func toots() async throws {
     let urlSession = URLSessionProtocolMock()
-    
+    urlSession.okDataReturnValue = tootResponse(username: "Testuser").data(using: .utf8)
+    keychainMock.tokenReturnValue = "1234"
+    Endpoint.host = "foobar"
+    sut.session = urlSession
+
+    let toots = try await sut.homeTimeline()
+
+    let request = try #require(urlSession.dataForDelegateReceivedArguments?.request)
+    let url = try #require(request.url)
+    let urlComponents = try #require(URLComponents(url: url, resolvingAgainstBaseURL: false))
+    #expect(urlComponents.host == "foobar")
+    #expect(request.allHTTPHeaderFields == ["Authorization": "Bearer 1234"])
+    #expect(toots.count == 2)
+    #expect(toots.first?.account.username == "Testuser")
+  }
+}
+
+extension APIClientTests {
+  func tootResponse(username: String) -> String {
+    return """
+      [
+      {
+      "id": "1",
+      "account": {
+      "id": "1",
+      "username": "\(username)",
+      "acct": "Gargron",
+      "display_name": "Eugen",
+      },
+      "media_attachments": [],
+      "mentions": [],
+      "tags": [],
+      "emojis": [],
+      "card": null,
+      "poll": null
+      },
+      {
+      "id": "2",
+      "account": {
+      "id": "2",
+      "username": "Two",
+      "acct": "Gargron",
+      "display_name": "Eugen",
+      },
+      "media_attachments": [],
+      "mentions": [],
+      "tags": [],
+      "emojis": [],
+      "card": null,
+      "poll": null
+      }
+      ]
+      """
   }
 }

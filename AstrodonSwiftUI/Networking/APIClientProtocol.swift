@@ -4,5 +4,5 @@
 
 protocol APIClientProtocol {
   func token(code: String) async throws -> String
-  func toots() async throws -> [Toot]
+  func homeTimeline() async throws -> [Toot]
 }

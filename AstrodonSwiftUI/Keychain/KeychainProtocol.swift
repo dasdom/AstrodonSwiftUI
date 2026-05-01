@@ -3,8 +3,9 @@
 //
 
 import Foundation
+import Combine
 
 protocol KeychainProtocol {
+  var tokenPublisher: CurrentValueSubject<String?, KeychainError> { get }
   func save(token: String?) throws
-  func token() -> String?
 }

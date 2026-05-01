@@ -3,11 +3,19 @@
 //
 
 @testable import AstrodonSwiftUI
-
+import Combine
 
 // MARK: - KeychainProtocolMock -
 
 final class KeychainProtocolMock: KeychainProtocol {
+
+  // MARK: - tokenPublisher
+
+  var tokenPublisher: CurrentValueSubject<String?, KeychainError> {
+    get { underlyingTokenPublisher }
+    set(value) { underlyingTokenPublisher = value }
+  }
+  private var underlyingTokenPublisher: CurrentValueSubject<String?, KeychainError>! = CurrentValueSubject(nil)
 
   // MARK: - save
 
@@ -28,19 +36,5 @@ final class KeychainProtocolMock: KeychainProtocol {
     saveTokenReceivedToken = token
     saveTokenReceivedInvocations.append(token)
     try saveTokenClosure?(token)
-  }
-
-  // MARK: - token
-
-  var tokenCallsCount = 0
-  var tokenCalled: Bool {
-    tokenCallsCount > 0
-  }
-  var tokenReturnValue: String?
-  var tokenClosure: (() -> String?)?
-
-  func token() -> String? {
-    tokenCallsCount += 1
-    return tokenClosure.map({ $0() }) ?? tokenReturnValue
   }
 }

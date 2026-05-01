@@ -3,8 +3,10 @@
 //
 
 import Foundation
+import Combine
 
 enum KeychainError: Error {
+  case tokenError
   case addError
   case copyError
   case deleteError
@@ -13,6 +15,7 @@ enum KeychainError: Error {
 class Keychain: KeychainProtocol {
   static let shared = Keychain()
   private let tokenKey = "token"
+  let tokenPublisher = CurrentValueSubject<String?, KeychainError>(nil)
 
   func save(token: String?) throws {
     if let token {
@@ -20,10 +23,7 @@ class Keychain: KeychainProtocol {
     } else {
       try delete(for: tokenKey)
     }
-  }
-
-  func token() -> String? {
-    get(for: tokenKey)
+    tokenPublisher.send(token)
   }
 
   private func save(string: String, for key: String) throws {

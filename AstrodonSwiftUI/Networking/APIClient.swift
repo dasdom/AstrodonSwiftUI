@@ -4,12 +4,13 @@
 
 
 import Foundation
+import Combine
 
 class APIClient: APIClientProtocol {
   lazy var session: URLSessionProtocol = URLSession.shared
   let keychain: KeychainProtocol
   private var token: String? {
-    return keychain.token()
+    return keychain.tokenPublisher.value
   }
 
   init(keychain: KeychainProtocol = Keychain()) {

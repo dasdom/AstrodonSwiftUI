@@ -4,17 +4,22 @@
 
 
 import Foundation
+import Combine
 
 @Observable
 class TimelineViewModel {
   let keychain: KeychainProtocol
   let apiClient: APIClientProtocol
-  var isPresentingAuth: Bool = false
+  var isPresentingAuth: Bool = true
+  var tokenPublisherToken: AnyCancellable?
 
   init(keychain: KeychainProtocol = Keychain(), apiClient: APIClientProtocol = APIClient()) {
     self.keychain = keychain
-    isPresentingAuth = keychain.token() == nil
-
     self.apiClient = apiClient
+
+    tokenPublisherToken = keychain.tokenPublisher.sink { _ in } receiveValue: { [weak self] token in
+      self?.isPresentingAuth = (token == nil)
+    }
+
   }
 }

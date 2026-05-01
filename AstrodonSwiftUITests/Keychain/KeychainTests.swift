@@ -5,25 +5,29 @@
 
 import Testing
 @testable import AstrodonSwiftUI
+import Combine
 
+@MainActor
 struct KeychainTests {
 
   let sut = Keychain.shared
 
   @Test func get_returnsPreviouslySavedString() async throws {
-    try await sut.save(token: "Test string")
+    let results = sut.tokenPublisher.values
 
-    let result = await sut.token()
+    try sut.save(token: "Test string")
 
+    let result = try await results.first(where: { _ in true })
     #expect(result == "Test string")
   }
 
   @Test func delete_removesStoredString() async throws {
-    try await sut.save(token: "Test string")
+    try sut.save(token: "Test string")
 
-    try await sut.save(token: nil)
+    let results = sut.tokenPublisher.values
+    try sut.save(token: nil)
 
-    let result = await sut.token()
+    let result = try #require(try await results.first(where: { _ in true }))
     #expect(result == nil)
   }
 }

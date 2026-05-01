@@ -5,6 +5,7 @@
 
 import Testing
 import Foundation
+import Combine
 @testable import AstrodonSwiftUI
 
 struct APIClientTests {
@@ -54,7 +55,7 @@ struct APIClientTests {
   @Test func toots() async throws {
     let urlSession = URLSessionProtocolMock()
     urlSession.okDataReturnValue = tootResponse(username: "Testuser").data(using: .utf8)
-    keychainMock.tokenReturnValue = "1234"
+    keychainMock.tokenPublisher.send("1234")
     Endpoint.host = "foobar"
     sut.session = urlSession
 

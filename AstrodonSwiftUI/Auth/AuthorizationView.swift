@@ -26,12 +26,9 @@ struct AuthorizationView: View {
                 using: url,
                 callbackURLScheme: "astrodon"
               )
-              // Call the method that completes the authentication using the
-              // returned URL.
-              //            try await signIn(using: urlWithToken)
               print("urlWithToken: \(urlWithToken)")
             } catch {
-              // Respond to any authorization errors.
+              print("\(error)")
             }
           }
         }

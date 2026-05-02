@@ -15,18 +15,22 @@ enum KeychainError: Error {
 class Keychain: KeychainProtocol {
   static let shared = Keychain()
   private let tokenKey = "token"
-  let tokenPublisher = CurrentValueSubject<String?, KeychainError>(nil)
+  let tokenPublisher: CurrentValueSubject<String?, KeychainError>
+
+  init() {
+    tokenPublisher = CurrentValueSubject(Self.get(for: tokenKey))
+  }
 
   func save(token: String?) throws {
     if let token {
-      try save(string: token, for: tokenKey)
+      try Self.save(string: token, for: tokenKey)
     } else {
-      try delete(for: tokenKey)
+      try Self.delete(for: tokenKey)
     }
     tokenPublisher.send(token)
   }
 
-  private func save(string: String, for key: String) throws {
+  private static func save(string: String, for key: String) throws {
     let data = string.data(using: .utf8)!
     let query = [
       kSecClass: kSecClassGenericPassword,
@@ -43,7 +47,7 @@ class Keychain: KeychainProtocol {
     }
   }
   
-  private func get(for key: String) -> String? {
+  private static func get(for key: String) -> String? {
     let query = [
       kSecClass: kSecClassGenericPassword,
       kSecAttrService: service(),
@@ -65,7 +69,7 @@ class Keychain: KeychainProtocol {
     return String(data: data, encoding: .utf8)
   }
 
-  private func delete(for key: String) throws {
+  private static func delete(for key: String) throws {
     let query = [
       kSecClass: kSecClassGenericPassword,
       kSecAttrService: service(),
@@ -79,7 +83,7 @@ class Keychain: KeychainProtocol {
     }
   }
 
-  private func service() -> String {
+  private static func service() -> String {
     return "de.dasdom.astrodon.swiftui"
   }
 }
